@@ -7,15 +7,40 @@
 //
 
 #import "AppDelegate.h"
+#import "MainViewController.h"
+#import "RearViewController.h"
+#import "WikitudeViewController.h"
 
 @implementation AppDelegate
-
+@synthesize navController;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    mainViewController = [[MainViewController alloc] initWithNibName:nil bundle:nil];
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.window.rootViewController = mainViewController;
+	
+   // mainViewController = [[MainViewController alloc] initWithNibName:nil bundle:nil];
+    wikitudeViewController = [[WikitudeViewController alloc] initWithNibName:nil bundle:nil];
+    rearViewController = [[RearViewController alloc] initWithNibName:nil bundle:nil];
+    navController = [[UINavigationController alloc] initWithRootViewController:wikitudeViewController];
+    navController.navigationBar.barStyle = UIBarStyleDefault;
+    //navController.navigationBar.tintColor = [UIColor colorWithRed:255.0f/255.0f green:153.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
+    navController.navigationBar.tintColor = [UIColor redColor];
+    ZUUIRevealController *revealController = [[ZUUIRevealController alloc] initWithFrontViewController:navController rearViewController:rearViewController];
+    
+    //navController.title = @"Halliburton";
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = revealController;
+   // [self presentViewController:revealController animated:YES completion:nil];
+    
+ 
+	
     [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
     return YES;
 }
 
